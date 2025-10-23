@@ -1,18 +1,18 @@
 const express = require('express');
 const app = express();
-const posts = require('./posts');
 
 
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Server del mio blog');
-});
 
-app.get('/bacheca', (req, res) => {
-  res.json(posts);
-});
+app.use(express.static('imgs'));
+
+
+const postsRouter = require('./routers/posts');
+app.use('/posts', postsRouter);
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`✅ Server del mio blog avviato su http://localhost:${PORT}`);
+  console.log(`✅ Server avviato su http://localhost:${PORT}`);
 });
